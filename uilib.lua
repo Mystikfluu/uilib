@@ -61,6 +61,13 @@ function epic:CreateWindow(name)
         UIGridLayout.CellSize = UDim2.new(0, 70, 0, 50)
       end
     end
+    local turned2 = false
+    while wait() and turned2 == false do
+      if(#Container:GetChildren() >= 50 and turned2 == false) then
+        turned2 = true
+        UIGridLayout.CellSize = UDim2.new(0, 35, 0, 25)
+      end
+    end
   end)
   minimize.Name = "minimize"
   minimize.Parent = TopBar
