@@ -73,7 +73,7 @@ function gui:Box(textholder, type, callback)
   Box.TextSize = 14.000
   Box.TextWrapped = true
   Box.FocusLost:Connect(function()
-    local callbackval = script.Parent.Text
+    local callbackval = script.Parent.Text or ""
     if(type == "number" or type == "int" or type == "num") then
       callbackval = tonumber(callbackval)
     end
