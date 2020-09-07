@@ -53,7 +53,15 @@ function epic:CreateWindow(name)
   UIGridLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
   UIGridLayout.SortOrder = Enum.SortOrder.LayoutOrder
   UIGridLayout.CellSize = UDim2.new(0, 140, 0, 100)
-
+  spawn(function()
+    local turned1 = false
+    while wait() and turned1 == false do
+      if(#Container:GetChildren() >= 9 and turned1 == false) then
+        turned1 = true
+        UIGridLayout.CellSize = UDim2.new(0, 70, 0, 50)
+      end
+    end
+  end)
   minimize.Name = "minimize"
   minimize.Parent = TopBar
   minimize.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
@@ -115,7 +123,9 @@ minimized = not minimized
 if(minimized == true) then
 for i, v in pairs(Container:GetChildren()) do
 spawn(function()
+  if(not v:IsA("UIGridLayout")) then
   v.Visible = false
+end
 end)
 end
 minimize.Text = ">"
@@ -123,10 +133,10 @@ Container:TweenSize(
 UDim2.new(0, 0, 0, 0),
 Enum.EasingDirection.In,
 Enum.EasingStyle.Quad,
-2,
+1,
 true
 )
-wait(3)
+wait(2)
 db = false
 else
 minimize.Text = "<"
@@ -134,13 +144,15 @@ Container:TweenSize(
 UDim2.new(0, 609, 0, 338),
 Enum.EasingDirection.Out,
 Enum.EasingStyle.Quad,
-2,
+1,
 true
 )
-wait(2)
+wait(1)
 for i, v in pairs(Container:GetChildren()) do
 spawn(function()
-  v.Visible = true
+if(not v:IsA("UIGridLayout")) then
+v.Visible = true
+end
 end)
 end
 wait(1)
