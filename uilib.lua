@@ -88,5 +88,4 @@ function gui:Image(url)
   ImageLabel.Size = UDim2.new(0, 200, 0, 50)
   ImageLabel.Image = url
 end
-end
 return gui
