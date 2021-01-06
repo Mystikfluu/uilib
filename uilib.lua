@@ -1,5 +1,3 @@
---have fun lol
-
 local epic = {}
 
 _G.settings = _G.settings or {}
@@ -604,6 +602,9 @@ local Button = Instance.new("TextButton")
 callback = callback or function() end
 text = v or ""
 if(type(v) == "Instance") then text = v.Name or "" end
+if(type(text) == type(game.Workspace)) then
+text = v.Name
+end
 Button.Name = "Button"
 Button.Parent = ScrollingFrame
 Button.BackgroundColor3 = ColorElements
