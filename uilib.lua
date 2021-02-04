@@ -553,6 +553,8 @@ end
 function gui:Dropdown(name, list, somebool, callback)
 name = name or ""
 list = list or {}
+local drop = {}
+local cons = {}
 somebool = somebool or false
 callback = callback or function() end
 local Dropdown = Instance.new("TextButton")
@@ -597,34 +599,42 @@ UIGridLayout.FillDirectionMaxCells = 1
 Dropdown.MouseButton1Click:Connect(function()
 ScrollingFrame.Visible = not ScrollingFrame.Visible
 end)
-for i, v in pairs(list) do
-local Button = Instance.new("TextButton")
-callback = callback or function() end
-text = v or ""
-if(type(v) == "Instance") then text = v.Name or "" end
-if(type(text) == type(game.Workspace)) then
-text = v.Name
+
+drop:Update = function(list, somebool, callback)
+  for i,v in pairs(cons) do
+    v:Disconnect()
+  end
+  for i, v in pairs(list) do
+    local Button = Instance.new("TextButton")
+    callback = callback or function() end
+    text = v or ""
+    if(type(text) == type(game.Workspace)) then
+      text = v.Name
+    end
+    Button.Name = "Button"
+    Button.Parent = ScrollingFrame
+    Button.BackgroundColor3 = ColorElements
+    Button.BorderSizePixel = 0
+    Button.Size = UDim2.new(0, 200, 0, 50)
+    Button.Font = Enum.Font.SourceSans
+    Button.Text = text
+    Button.TextColor3 = minimizertextcolor
+    Button.TextScaled = true
+    Button.TextSize = 14.000
+    Button.TextWrapped = true
+    cons[#cons+1] = Button.MouseButton1Click:Connect(function()
+      ScrollingFrame.Visible = false
+      if(somebool) then
+        Dropdown.Text = Dropdown.Name .." / " .. Button.Text
+      end
+      callback(v)
+    end)
+  end
 end
-Button.Name = "Button"
-Button.Parent = ScrollingFrame
-Button.BackgroundColor3 = ColorElements
-Button.BorderSizePixel = 0
-Button.Size = UDim2.new(0, 200, 0, 50)
-Button.Font = Enum.Font.SourceSans
-Button.Text = text
-Button.TextColor3 = minimizertextcolor
-Button.TextScaled = true
-Button.TextSize = 14.000
-Button.TextWrapped = true
-Button.MouseButton1Click:Connect(function()
-ScrollingFrame.Visible = false
-if(somebool) then
-Dropdown.Text = Dropdown.Name .." / " .. Button.Text
-end
-callback(v)
-end)
-end
-return false
+drop:Update(list,somebool,callback)
+
+
+return drop
 end
 
 function gui:Toggle(text, callback)
