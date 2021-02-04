@@ -601,9 +601,13 @@ ScrollingFrame.Visible = not ScrollingFrame.Visible
 end)
 
 function drop:Update(list, somebool, callback)
-  ScrollingFrame:ClearAllChildren()
   for i,v in pairs(cons) do
     v:Disconnect()
+  end
+  for i,v in pairs(ScrollingFrame:GetChildren()) do
+    if(v.Name == "Button") then
+      v:Destroy()
+    end
   end
   for i, v in pairs(list) do
     local Button = Instance.new("TextButton")
