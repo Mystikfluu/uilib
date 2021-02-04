@@ -601,7 +601,7 @@ ScrollingFrame.Visible = not ScrollingFrame.Visible
 end)
 
 function drop:Update(list, somebool, callback)
-  ScrollingFrame:ClearChildren()
+  ScrollingFrame:ClearAllChildren()
   for i,v in pairs(cons) do
     v:Disconnect()
   end
