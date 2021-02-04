@@ -600,7 +600,7 @@ Dropdown.MouseButton1Click:Connect(function()
 ScrollingFrame.Visible = not ScrollingFrame.Visible
 end)
 
-drop:Update = function(list, somebool, callback)
+function drop:Update(list, somebool, callback)
   for i,v in pairs(cons) do
     v:Disconnect()
   end
